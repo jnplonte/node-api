@@ -1,0 +1,32 @@
+{
+    "local": {
+      "host": "http://localhost",
+      "port" : 8383,
+      "endpoints": {
+
+      },
+      "defaults": {
+
+      }
+    },
+    "development": {
+      "host": "https://www.jnpl.me/playground/nodeapi",
+      "port": 8383,
+      "endpoints": {
+
+      },
+      "defaults": {
+        
+      }
+    },
+    "production": {
+      "host": "https://www.jnpl.me/playground/nodeapi",
+      "port": 8383,
+      "endpoints": {
+
+      },
+      "defaults": {
+        
+      }
+    }
+}

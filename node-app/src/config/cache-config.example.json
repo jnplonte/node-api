@@ -1,0 +1,20 @@
+{
+    "local": {
+        "host": "",
+        "port": "",
+        "password": "",
+        "expire": 0
+    },
+    "development": {
+        "host": "",
+        "port": "",
+        "password": "",
+        "expire": 0
+    },
+    "production": {
+        "host": "",
+        "port": "",
+        "password": "",
+        "expire": 0
+    }
+}

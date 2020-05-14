@@ -1,0 +1,22 @@
+version: '3.2'
+
+services:
+    node:
+        image: nodeapi
+        restart: always
+        build:
+            context: ./
+            dockerfile: ./node.docker
+        container_name: nodeapi
+        ports:
+            - "8383:8383"
+        volumes:
+            - ./node-app:/application
+        env_file: ./node-app/app.env
+        command: ["bash", "start.sh"]
+        networks:
+            - app-network
+
+networks:
+  app-network:
+    driver: bridge
