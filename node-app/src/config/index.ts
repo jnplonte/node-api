@@ -7,7 +7,7 @@ export const baseConfig = {
   'logo': 'https://via.placeholder.com/50',
   'poweredBy': 'node api',
   'secretKey': 'x-node-api-key',
-  'secretKeyHash': 'KuQmvnxXEjR7KXwfucgerTf6YwZV5Amz5awwxf5PFgkpGrb3Jn',
+  'secretKeyHash': '',
   'secretKeyLength': 5,
   'getQueryLimit': 10,
   'passwordExpiryLength': 30,
