@@ -14,8 +14,8 @@
 
 
 ## Demo
-* api: [http://jnpl.me/playground/nodeapi/](http://jnpl.me/playground/nodeapi/)
-* api documentation: [http://jnpl.me/playground/nodeapi/documentation](http://jnpl.me/playground/nodeapi/documentation/)
+* api: [https://www.jnpl.me/playground/nodeapi/](https://www.jnpl.me/playground/nodeapi/)
+* api documentation: [https://www.jnpl.me/playground/nodeapi/documentation](https://wwww.jnpl.me/playground/nodeapi/documentation/)
 
 
 ## NODE
