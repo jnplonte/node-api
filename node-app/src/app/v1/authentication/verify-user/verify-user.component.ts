@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
-import { CoreInterface } from './../../../interfaces/core/core.interface';
+import { CoreMiddleware } from '../../../middlewares/core/core.middleware';
 
 import { UsersAttributes } from './../../../../models/users';
 
-export class VerifyUser extends CoreInterface {
+export class VerifyUser extends CoreMiddleware {
     constructor(app, private response, private helper, private notification) {
         super(app);
     }

@@ -26,13 +26,12 @@ describe('register component', () => {
         supertest(app).post('/v1/auth/register?test=true')
             .set('x-node-api-key', 'S3VRbXZueFhFalI3S1h3ZnVjZ2VyVGY2WXdaVjVBbXo1YXd3eGY1UEZna3BHcmIzSm4=')
             .send({
-                'companyKey': 'MWYzOTE0MGMtYjdjMC00ZWFlLWJhYWItYjE1NDA1ZTAxZTRh',
                 'firstName': 'test',
                 'lastName': 'test',
                 'email': `test${timeStamp}@email.com`,
                 'username': `test${timeStamp}`,
                 'password': '5f4dcc3b5aa765d61d8327deb882cf99',
-                'roleId': 5,
+                'roleId': 3,
                 'verified': true
             })
             .expect('Content-Type', /json/)
@@ -56,7 +55,7 @@ describe('register component', () => {
                 'email': `test${timeStamp}@email.com`,
                 'username': `test${timeStamp}`,
                 'password': '5f4dcc3b5aa765d61d8327deb882cf99',
-                'roleId': 5,
+                'roleId': 3,
                 'verified': true,
                 'socialMedia': 'FACEBOOK',
                 'socialMediaKey': '12345678910'

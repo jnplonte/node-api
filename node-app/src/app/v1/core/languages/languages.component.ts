@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
-import { CoreInterface } from './../../../interfaces/core/core.interface';
+import { CoreMiddleware } from '../../../middlewares/core/core.middleware';
 
 import { LanguagesAttributes } from './../../../../models/languages';
 
-export class Languages extends CoreInterface {
+export class Languages extends CoreMiddleware {
     pageCache: any;
     nameCache: string = '/v1/core/language*';
 

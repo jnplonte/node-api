@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { BaseInterface } from './../base/base.interface';
+import { BaseMiddleware } from '../base/base.middleware';
 
-export class CoreInterface extends BaseInterface {
+export class CoreMiddleware extends BaseMiddleware {
     constructor(app, cache?) {
         super(app, cache);
     }

@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
-import { CoreInterface } from './../../../interfaces/core/core.interface';
+import { CoreMiddleware } from '../../../middlewares/core/core.middleware';
 
 import { UsersAttributes } from './../../../../models/users';
 
-export class Register extends CoreInterface {
+export class Register extends CoreMiddleware {
     constructor(app, private response, private helper, private notification) {
         super(app);
     }
@@ -24,7 +24,6 @@ export class Register extends CoreInterface {
      *
      * @apiDescription register user
      *
-     * @apiParam (body) {String} companyKey company key
      * @apiParam (body) {String} firstName first name
      * @apiParam (body) {String} lastName last name
      * @apiParam (body) {String} email unique email address
@@ -41,7 +40,7 @@ export class Register extends CoreInterface {
      * @apiParam (body) {String} [logo] email logo
      */
     register(req: Request, res: Response): void {
-        const reqParameters: string[] = ['companyKey', 'firstName', 'lastName', 'email', 'username', 'password'];
+        const reqParameters: string[] = ['firstName', 'lastName', 'email', 'username', 'password'];
         if (!this.helper.validateData(req.body, reqParameters)) {
             return this.response.failed(res, 'data', reqParameters);
         }
@@ -68,7 +67,7 @@ export class Register extends CoreInterface {
         }
 
         if (data['verified']) {
-            return req.models.users.create(this.helper.cleanData(data), {include: this.postInclude(req.models, data['roleId'])})
+            return req.models.users.create(this.helper.cleanData(data))
                 .then(
                     (user: UsersAttributes) => {
                         return this.response.success(res, 'register', user.id || '');
@@ -78,7 +77,7 @@ export class Register extends CoreInterface {
                     (error) => this.response.failed(res, 'register', error)
                 );
         } else {
-            return req.models.users.create(this.helper.cleanData(data), {include: this.postInclude(req.models, data['roleId'])})
+            return req.models.users.create(this.helper.cleanData(data))
                 .then(
                     (user: UsersAttributes) => {
                         if (!user) {
@@ -115,7 +114,6 @@ export class Register extends CoreInterface {
      *
      * @apiDescription key register user
      *
-     * @apiParam (body) {String} companyKey company key
      * @apiParam (body) {String} firstName first name
      * @apiParam (body) {String} lastName last name
      * @apiParam (body) {String} email unique email address
@@ -129,7 +127,7 @@ export class Register extends CoreInterface {
      * @apiParam (body) {Number} [roleId] role id
      */
     keyRegister(req: Request, res: Response): void {
-        const reqParameters: string[] = ['companyKey', 'firstName', 'lastName', 'email', 'username', 'password', 'socialMedia', 'socialMediaKey'];
+        const reqParameters: string[] = ['firstName', 'lastName', 'email', 'username', 'password', 'socialMedia', 'socialMediaKey'];
         if (!this.helper.validateData(req.body, reqParameters)) {
             return this.response.failed(res, 'data', reqParameters);
         }
@@ -146,16 +144,6 @@ export class Register extends CoreInterface {
         data['currencyId'] = (data['currencyId']) ? Number(data['currencyId']) : this.helper.defaultCurrency;
         data['roleId'] = (data['roleId']) ? Number(data['roleId']) : this.helper.defaultUserRole;
 
-        // HACK: bad implementation
-        switch (data['roleId']) {
-            case 4:
-                data['employee'] = (data['employee']) ? data['employee'] : {};
-            break;
-            case 5:
-                data['customer'] = (data['customer']) ? data['customer'] : {};
-            break;
-        }
-
         const whereData = {
             'where': {
                 'email': Buffer.from(data['email']).toString('base64'),
@@ -169,7 +157,7 @@ export class Register extends CoreInterface {
             .then(
                 (userFind: any) => {
                     if (!userFind) {
-                        return req.models.users.create(this.helper.cleanData(data), {include: this.postInclude(req.models, data['roleId'])});
+                        return req.models.users.create(this.helper.cleanData(data));
                     }
 
                     return userFind.update({
@@ -186,21 +174,5 @@ export class Register extends CoreInterface {
             .catch(
                 (error) => this.response.failed(res, 'register', error)
             );
-    }
-
-    protected postInclude(model: any, roleId: number = 0): Array<any> {
-        const includeData: Array<any> = [];
-
-        // HACK: bad implementation
-        switch (roleId) {
-            case 4:
-                includeData.push({ 'model': model.employees });
-            break;
-            case 5:
-                includeData.push({ 'model': model.customers });
-            break;
-        }
-
-        return includeData;
     }
 }

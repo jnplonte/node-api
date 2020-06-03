@@ -1,4 +1,4 @@
-export class BaseInterface {
+export class BaseMiddleware {
     pageCache: any;
     nameCache: string;
 

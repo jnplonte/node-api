@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
-import { CoreInterface } from './../../../interfaces/core/core.interface';
+import { CoreMiddleware } from '../../../middlewares/core/core.middleware';
 
 import { CountriesAttributes } from './../../../../models/countries';
 
-export class Countries extends CoreInterface {
+export class Countries extends CoreMiddleware {
     pageCache: any;
     nameCache: string = '/v1/core/countr*';
 

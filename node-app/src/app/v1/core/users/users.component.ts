@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
-import { CoreInterface } from './../../../interfaces/core/core.interface';
+import { CoreMiddleware } from '../../../middlewares/core/core.middleware';
 
 import { UsersAttributes } from './../../../../models/users';
 
-export class Users extends CoreInterface {
+export class Users extends CoreMiddleware {
     pageCache: any;
     nameCache: string = '/v1/core/user*';
 
