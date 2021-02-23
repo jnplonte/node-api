@@ -1,21 +1,26 @@
 version: '3.2'
 
 services:
-    node:
-        image: nodeapi
-        restart: always
-        build:
-            context: ./
-            dockerfile: ./node.docker
-        container_name: nodeapi
-        ports:
-            - "8383:8383"
-        volumes:
-            - ./node-app:/application
-        env_file: ./node-app/app.env
-        command: ["bash", "start.sh"]
-        networks:
-            - app-network
+  node:
+    image: nodeapi
+    restart: always
+    build:
+      context: ./
+      dockerfile: ./node.docker
+    container_name: nodeapi
+    ports:
+      - '8383:8383'
+    volumes:
+      - ./node-app:/application
+    env_file: ./node-app/app.env
+    command: ['bash', 'start.sh']
+    networks:
+      - app-network
+    logging:
+      driver: 'json-file'
+      options:
+        max-file: '5'
+        max-size: '10m'
 
 networks:
   app-network:

@@ -1,15 +1,15 @@
 {
-    "name": "Node Api",
-    "version": "1.0.0",
-    "description": "Node Api Documentation",
-    "title": "Node Api Documentation",
-    "url": "https://www.jnpl.me/playground/nodeapi/<version>",
-    "header": {
-        "title": "GETTING STARTED",
-        "filename": "apidoc-getting-started.md"
-    },
-    "template": {
-        "withCompare": true,
-        "withGenerator": true
-    }
+	"name": "Node Api",
+	"version": "1.0.0",
+	"description": "Node Api Documentation",
+	"title": "Node Api Documentation",
+	"url": "https://www.jnpl.me/playground/nodeapi/<version>",
+	"header": {
+		"title": "GETTING STARTED",
+		"filename": "apidoc-getting-started.md"
+	},
+	"template": {
+		"withCompare": true,
+		"withGenerator": true
+	}
 }

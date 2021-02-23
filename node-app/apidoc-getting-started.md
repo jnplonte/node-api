@@ -1,9 +1,9 @@
 all api that has a **permision** set to **authenticated-user** is required to have a `Authorization Bearer Token` as a headers
 
-*NOTE: authorization token will expired every 5days*
-
+_NOTE: authorization token will expired every 5days_
 
 ### API EXPECTED SUCCESS RESULTS
+
 ```
 {
     "status": "success",
@@ -18,8 +18,8 @@ all api that has a **permision** set to **authenticated-user** is required to ha
 }
 ```
 
-
 ### API EXPECTED FAILED RESULTS
+
 ```
 {
     "status": "failed",
@@ -29,13 +29,13 @@ all api that has a **permision** set to **authenticated-user** is required to ha
 }
 ```
 
-
 ### API STATUS
-* `200` => status is success
-* `204` => status is success but no data to be shown
-* `400` => status is failed
-* `401` => status is failed and invalid x-node-api-key
-* `403` => status is failed and user is not authorized to access the api endpoint
-* `404` => api endpoint dosen't exists
-* `405` => no method is available for that particular api endpoint
-* `500` => internal server error
+
+- `200` => status is success
+- `204` => status is success but no data to be shown
+- `400` => status is failed
+- `401` => status is failed and invalid x-node-api-key
+- `403` => status is failed and user is not authorized to access the api endpoint
+- `404` => api endpoint dosen't exists
+- `405` => no method is available for that particular api endpoint
+- `500` => internal server error
