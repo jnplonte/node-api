@@ -1,104 +1,72 @@
 import { Request, Response } from 'express';
 import { BaseMiddleware } from '../base/base.middleware';
 
+import { isAdmin } from './inheritances/is-admin.inheritance';
+import {
+	autoFillPostInformation,
+	autoFillAllPostInformation,
+} from './inheritances/auto-fill-post-information.inheritance';
+import {
+	autoFillPutInformation,
+	autoFillAllPutInformation,
+} from './inheritances/auto-fill-put-information.inheritance';
+
 export class CoreMiddleware extends BaseMiddleware {
-    constructor(app, cache?) {
-        super(app, cache);
-    }
+	constructor(app, cache?) {
+		super(app, cache);
+	}
 
-    get attributes(): any {
-        return [];
-    }
+	get attributes(): any {
+		return [];
+	}
 
-    get requiredParameters(): string[] {
-        return [];
-    }
+	get requiredParameters(): string[] {
+		return [];
+	}
 
-    all(req: Request, res: Response): void {
+	all(req: Request, res: Response): void {}
 
-    }
+	get(req: Request, res: Response): void {}
 
-    get(req: Request, res: Response): void {
+	post(req: Request, res: Response): void {}
 
-    }
+	put(req: Request, res: Response): void {}
 
-    post(req: Request, res: Response): void {
+	delete(req: Request, res: Response): void {}
 
-    }
+	protected getInclude(model?: any): Array<any> {
+		return [];
+	}
 
-    put(req: Request, res: Response): void {
+	protected postInclude(model?: any): Array<any> {
+		return [];
+	}
 
-    }
+	protected cacheCheck(pageCache?, nameCache?) {
+		if (pageCache && nameCache) {
+			return (callback) => pageCache.del(nameCache, () => callback);
+		} else {
+			return (callback) => callback;
+		}
+	}
 
-    delete(req: Request, res: Response): void {
+	protected autoFillPostInformation(data: object = {}, authData: object = {}): object {
+		return autoFillPostInformation(data, authData);
+	}
 
-    }
+	protected autoFillAllPostInformation(data: Array<object>, authData: object = {}): Array<object> {
+		return autoFillAllPostInformation(data, authData);
+	}
 
-    protected getInclude(model?: any): Array<any> {
-        return [];
-    }
+	protected autoFillPutInformation(data: object = {}, authData: object = {}): object {
+		return autoFillPutInformation(data, authData);
+	}
 
-    protected postInclude(model?: any): Array<any> {
-        return [];
-    }
+	protected autoFillAllPutInformation(data: Array<object>, authData: object = {}): Array<object> {
+		return autoFillAllPutInformation(data, authData);
+	}
 
-    protected autoFillPostInformation(data: object = {}, authData: object = {}): object {
-        if (typeof(authData['id']) !== 'undefined') {
-            data['createdUserId'] = authData['id'];
-            data['updatedUserId'] = authData['id'];
-        }
-
-        data['createdAt'] = new Date();
-        data['updatedAt'] = new Date();
-
-        return data;
-    }
-
-    protected autoFillAllPostInformation(data: Array<object>, authData: object = {}): Array<object> {
-        return data.map( (dataval) => {
-            if (typeof(authData['id']) !== 'undefined') {
-                dataval['createdUserId'] = authData['id'];
-                dataval['updatedUserId'] = authData['id'];
-            }
-
-            dataval['createdAt'] = new Date();
-            dataval['updatedAt'] = new Date();
-
-            return dataval;
-        });
-    }
-
-    protected autoFillPutInformation(data: object = {}, authData: object = {}): object {
-        if (typeof(authData['id']) !== 'undefined') {
-            data['updatedUserId'] = authData['id'];
-        }
-
-        data['updatedAt'] = new Date();
-
-        return data;
-    }
-
-    protected autoFillAllPutInformation(data: Array<object>, authData: object = {}): Array<object> {
-        return data.map( (dataval) => {
-            if (typeof(authData['id']) !== 'undefined') {
-                dataval['updatedUserId'] = authData['id'];
-            }
-
-            dataval['updatedAt'] = new Date();
-
-            return dataval;
-        });
-    }
-
-    protected isAdmin(authData: object = {}): boolean {
-        return (authData['roleId'] && authData['roleId'] === 1);
-    }
-
-    protected cacheCheck(pageCache?, nameCache?) {
-        if (pageCache && nameCache) {
-            return (callback) => pageCache.del(nameCache, () => callback);
-        } else {
-            return (callback) => callback;
-        }
-    }
+	protected isAdmin(authData: object = {}): boolean {
+		return isAdmin(authData);
+	}
 }

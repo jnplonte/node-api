@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
-import { CoreMiddleware } from '../../../middlewares/core/core.middleware';
+import { AuthenticationMiddleware } from '../../../middlewares/core/authentication.middleware';
 
 import { UsersAttributes } from './../../../../models/users';
 
-export class ForgotPassword extends CoreMiddleware {
+export class ForgotPassword extends AuthenticationMiddleware {
 	constructor(app, private response, private helper, private notification) {
 		super(app);
 	}

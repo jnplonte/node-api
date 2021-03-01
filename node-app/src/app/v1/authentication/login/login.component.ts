@@ -1,10 +1,11 @@
 import { Request, Response } from 'express';
+import { AuthenticationMiddleware } from '../../../middlewares/core/authentication.middleware';
+
 import { Op } from 'sequelize';
-import { CoreMiddleware } from '../../../middlewares/core/core.middleware';
 
 import { UsersAttributes } from './../../../../models/users';
 
-export class LogIn extends CoreMiddleware {
+export class LogIn extends AuthenticationMiddleware {
 	constructor(app, private response, private helper) {
 		super(app);
 	}
