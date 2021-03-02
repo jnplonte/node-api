@@ -35,14 +35,6 @@
 
 - run `npm start` it will listen to http://localhost:8383 with authorization Bearer
 
-### Creating Models and Migrations
-
-- create global models `npm run create:model -- <name of the model>`
-
-### Creating Seeders
-
-- create global seeders `npm run create:seed -- seed-<name of the seeder>`
-
 ### Testing
 
 - start all test by running `npm run test`
