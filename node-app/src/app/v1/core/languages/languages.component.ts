@@ -31,9 +31,9 @@ export class Languages extends CoreMiddleware {
 	 *
 	 * @apiDescription get all language
 	 *
-	 * @apiParam (url parameter) {String} [query] filter query Ex. ?query=key:value
-	 * @apiParam (url parameter) {Number} [limit=10] data limit Ex. ?limit=1
-	 * @apiParam (url parameter) {Number} [page=1] page number Ex. ?page=1
+	 * @apiParam (query) {String} [query] filter query <br/>Ex. ?query=key:value
+	 * @apiParam (query) {Number} [limit=10] data limit <br/>Ex. ?limit=1
+	 * @apiParam (query) {Number} [page=1] page number <br/>Ex. ?page=1
 	 */
 	all(req: Request, res: Response): void {
 		const whereData = {
@@ -60,8 +60,8 @@ export class Languages extends CoreMiddleware {
 	 *
 	 * @apiDescription get one language
 	 *
-	 * @apiParam (url segment) {Number} id language id
-	 * @apiParam (url parameter) {String} key key search Ex. ?key=name
+	 * @apiParam (param) {Number} id language id
+	 * @apiParam (query) {String} key key search <br/>Ex. ?key=name
 	 */
 	get(req: Request, res: Response): void {
 		const whereData = {};
@@ -114,7 +114,7 @@ export class Languages extends CoreMiddleware {
 	 *
 	 * @apiDescription update language
 	 *
-	 * @apiParam (url segment) {Number} id language id
+	 * @apiParam (param) {Number} id language id
 	 * @apiParam (body) {String} [name] name
 	 * @apiParam (body) {String} [code] code
 	 * @apiParam (body) {String} [description] description
@@ -151,7 +151,7 @@ export class Languages extends CoreMiddleware {
 	 *
 	 * @apiDescription delete language
 	 *
-	 * @apiParam (url segment) {Number} id language id
+	 * @apiParam (param) {Number} id language id
 	 */
 	delete(req: Request, res: Response): void {
 		const id = req.params.id;

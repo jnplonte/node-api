@@ -46,9 +46,9 @@ export class Users extends CoreMiddleware {
 	 *
 	 * @apiDescription get all user
 	 *
-	 * @apiParam {String} [query] filter query Ex. ?query=key:value
-	 * @apiParam {Number} [limit=10] data limit Ex. ?limit=1
-	 * @apiParam {Number} [page=1] page number Ex. ?page=1
+	 * @apiParam (query) {String} [query] filter query <br/>Ex. ?query=key:value
+	 * @apiParam (query) {Number} [limit=10] data limit <br/>Ex. ?limit=1
+	 * @apiParam (query) {Number} [page=1] page number <br/>Ex. ?page=1
 	 */
 	all(req: Request, res: Response): void {
 		const whereData = {
@@ -77,8 +77,8 @@ export class Users extends CoreMiddleware {
 	 *
 	 * @apiDescription get one user
 	 *
-	 * @apiParam (url segment) {String} id user id
-	 * @apiParam (url parameter) {String} key key search Ex. ?key=name
+	 * @apiParam (param) {String} id user id
+	 * @apiParam (query) {String} key key search <br/>Ex. ?key=name
 	 */
 	get(req: Request, res: Response): void {
 		const whereData = {
@@ -169,7 +169,7 @@ export class Users extends CoreMiddleware {
 	 *
 	 * @apiDescription update user
 	 *
-	 * @apiParam (url segment) {String} id user id
+	 * @apiParam (param) {String} id user id
 	 * @apiParam (body) {String} [firstName] first name
 	 * @apiParam (body) {String} [lastName] last name
 	 * @apiParam (body) {String} [email] unique email address
@@ -213,7 +213,7 @@ export class Users extends CoreMiddleware {
 	 *
 	 * @apiDescription delete user
 	 *
-	 * @apiParam (url segment) {String} id user id
+	 * @apiParam (param) {String} id user id
 	 */
 	delete(req: Request, res: Response): void {
 		const id = req.params.id;

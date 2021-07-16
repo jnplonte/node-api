@@ -27,7 +27,7 @@ export class LogIn extends CoreMiddleware {
 	 *
 	 * @apiParam (body) {String} username user name
 	 * @apiParam (body) {String} password MD5 hash password
-	 * @apiParam (url parameter) {String} roleId role id Ex. ?roleId=1,2,3
+	 * @apiParam (query) {String} roleId role id <br/>Ex. ?roleId=1,2,3
 	 */
 	login(req: Request, res: Response): void {
 		const reqParameters: string[] = ['username', 'password'];
@@ -105,7 +105,7 @@ export class LogIn extends CoreMiddleware {
 	 * @apiParam (body) {String} type login type
 	 * @apiParam (body) {String} email email address
 	 * @apiParam (body) {String} key login key
-	 * @apiParam (url parameter) {String} roleId role id Ex. ?roleId=1,2,3
+	 * @apiParam (query) {String} roleId role id <br/>Ex. ?roleId=1,2,3
 	 */
 	keyLogin(req: Request, res: Response): void {
 		const reqParameters: string[] = ['type', 'email', 'key'];
