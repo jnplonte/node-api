@@ -1,32 +1,20 @@
 {
-    "local": {
-      "host": "http://localhost",
-      "port" : 8383,
-      "endpoints": {
-
-      },
-      "defaults": {
-
-      }
-    },
-    "development": {
-      "host": "https://www.jnpl.me/playground/nodeapi",
-      "port": 8383,
-      "endpoints": {
-
-      },
-      "defaults": {
-        
-      }
-    },
-    "production": {
-      "host": "https://www.jnpl.me/playground/nodeapi",
-      "port": 8383,
-      "endpoints": {
-
-      },
-      "defaults": {
-        
-      }
-    }
+	"local": {
+		"host": "http://localhost",
+		"port": 8383,
+		"endpoints": {},
+		"defaults": {}
+	},
+	"development": {
+		"host": "http://nodeapi.jnpl.me",
+		"port": 0,
+		"endpoints": {},
+		"defaults": {}
+	},
+	"production": {
+		"host": "http://nodeapi.jnpl.me",
+		"port": 0,
+		"endpoints": {},
+		"defaults": {}
+	}
 }
