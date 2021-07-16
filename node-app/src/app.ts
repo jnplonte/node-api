@@ -3,7 +3,7 @@ import * as jwt from 'express-jwt';
 import * as helmet from 'helmet';
 import * as compression from 'compression';
 import * as cors from 'cors';
-import * as bodyParser from 'body-parser';
+import { expressCspHeader, SELF, EVAL } from 'express-csp-header';
 
 import * as redisCache from 'express-redis-cache';
 
@@ -55,8 +55,8 @@ class App {
 		this.express.use(helmet());
 		this.express.use(compression());
 		this.express.use(cors());
-		this.express.use(bodyParser.json());
-		this.express.use(bodyParser.urlencoded({ extended: true }));
+		this.express.use(express.json());
+		this.express.use(express.urlencoded({ extended: true }));
 	}
 
 	private implementToken(): void {
@@ -96,7 +96,15 @@ class App {
 		if (this.env === 'production') {
 			// do something here
 		} else {
-			this.express.use('/documentation', express.static(__dirname + '/doc'));
+			this.express.use(
+				'/documentation',
+				expressCspHeader({
+					directives: {
+						'script-src': [SELF, EVAL],
+					},
+				}),
+				express.static(__dirname + '/doc')
+			);
 		}
 	}
 
