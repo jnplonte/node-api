@@ -1,12 +1,20 @@
 import { Helper } from './../helper/helper.service';
 import { Op } from 'sequelize';
 
-
 export class Query {
 	helper: Helper;
 
 	constructor(private config) {
 		this.helper = new Helper(this.config);
+	}
+
+	appendRequestOrder(orderData: Array<any> = [], reqOrder: string = ''): object {
+		const reqOrderArray: Array<any> = reqOrder.split(':');
+		const sorting: string = reqOrderArray[1] === 'ASC' || reqOrderArray[1] === 'DESC' ? reqOrderArray[1] : 'ASC';
+
+		orderData.push([...reqOrderArray[0].split('.'), sorting]);
+
+		return orderData;
 	}
 
 	getAll(model, data: Object = {}, reqQuery: Object = {}): Promise<any> {
@@ -16,36 +24,39 @@ export class Query {
 		//     });
 		// }
 
-		const page: number = (typeof(reqQuery['page']) !== 'undefined') ? reqQuery['page'] : 1;
-		const limit: number = (typeof(reqQuery['limit']) !== 'undefined') ? Number(reqQuery['limit']) : Number(this.config.getQueryLimit);
+		const page: number = typeof reqQuery['page'] !== 'undefined' ? reqQuery['page'] : 1;
+		const limit: number =
+			typeof reqQuery['limit'] !== 'undefined' ? Number(reqQuery['limit']) : Number(this.config.getQueryLimit);
 
-		if (typeof(reqQuery['query']) !== 'undefined') {
+		if (typeof reqQuery['query'] !== 'undefined') {
 			data['where'] = this.appendRequestQuery(data['where'], reqQuery['query']);
 		}
 
-		if (typeof(reqQuery['order']) !== 'undefined') {
+		if (typeof reqQuery['order'] !== 'undefined') {
 			data['order'] = this.appendRequestOrder(data['order'], reqQuery['order']);
 		}
 
 		data['offset'] = limit * (page - 1);
-		data['limit'] =  limit;
+		data['limit'] = limit;
 
 		if (data['include']) {
 			data['distinct'] = true;
 		}
 
-		return model.findAndCountAll(this.helper.cleanData(data)).then( (dataValue) => {
+		return model.findAndCountAll(this.helper.cleanData(data)).then((dataValue) => {
 			const allPagination: Object = {};
 
-			allPagination['totalData'] = (dataValue.count.length) ? Number(dataValue.count.length) : Number(dataValue.count || 0);
+			allPagination['totalData'] = dataValue.count.length
+				? Number(dataValue.count.length)
+				: Number(dataValue.count || 0);
 			allPagination['totalPage'] = Number(Math.ceil(allPagination['totalData'] / limit));
 			allPagination['currentPage'] = Number(page);
 
-			return { 'data': dataValue.rows || [], 'pagination': allPagination };
+			return { data: dataValue.rows || [], pagination: allPagination };
 		});
 	}
 
-	getOne(model, data: Object = {}, reqKey: string, reqValue: string|number|boolean): Promise<any> {
+	getOne(model, data: Object = {}, reqKey: string, reqValue: string | number | boolean): Promise<any> {
 		const whereData: Object = {};
 
 		if (reqKey && reqValue) {
@@ -60,26 +71,23 @@ export class Query {
 	}
 
 	post(model, data: Object = {}, include?: Object): Promise<any> {
-		return model.create(this.helper.cleanDataWithNull(data), (include) ? include : {});
+		return model.create(this.helper.cleanDataWithNull(data), include ? include : {});
 	}
 
 	postBulk(model, data: Array<any> = [], include?: Object): Promise<any> {
-		data = data.sort( (a, b) => {
-			return (!a.id) ? -1 : (!b.id) ? 1 : 0;
-		});
+		data = data.sort((a, b) => (!a.id ? -1 : !b.id ? 1 : 0));
 
-		return model.bulkCreate(this.helper.cleanDataWithNull(data), (include) ? include : {});
+		return model.bulkCreate(this.helper.cleanDataWithNull(data), include ? include : {});
 	}
 
 	postGet(model, data: Object = {}, getCreated?: boolean): Promise<any> {
-		return model.findOrCreate({'where': this.helper.cleanDataWithNull(data)})
-			.spread((modelData, created) => {
-				if (typeof(getCreated) !== 'undefined') {
-					return (!getCreated) ? modelData.get({ plain: true }) : modelData;
-				} else {
-					return modelData.get({ plain: true });
-				}
-			});
+		return model.findOrCreate({ where: this.helper.cleanDataWithNull(data) }).spread((modelData, created) => {
+			if (typeof getCreated !== 'undefined') {
+				return !getCreated ? modelData.get({ plain: true }) : modelData;
+			} else {
+				return modelData.get({ plain: true });
+			}
+		});
 	}
 
 	put(model, data: Object = {}, whereData: Object = {}): Promise<any> {
@@ -90,14 +98,13 @@ export class Query {
 		const wData = this.helper.cleanData(whereData);
 		const wDataNull = this.helper.cleanDataWithNull(data);
 
-		return model.findOne(wData)
-			.then( (modelData) => {
-				if (!modelData) {
-					return model.create(wDataNull);
-				}
+		return model.findOne(wData).then((modelData) => {
+			if (!modelData) {
+				return model.create(wDataNull);
+			}
 
-				return modelData.update(wDataNull, wData);
-			});
+			return modelData.update(wDataNull, wData);
+		});
 	}
 
 	putIncrement(model, data: Object = {}, whereData: Object = {}): Promise<any> {
@@ -130,15 +137,13 @@ export class Query {
 				let valValue = datavalArray[1] || '';
 				let splitArray: Array<any> = valValue.split(',');
 				if (splitArray.length > 1) {
-					splitArray = splitArray.map( (splitval) => {
-						return (splitval === 'null') ? '' : splitval;
-					});
+					splitArray = splitArray.map((splitval) => (splitval === 'null' ? '' : splitval));
 					valValue = { [Op.in]: splitArray };
 				} else {
 					if (valValue === 'null') {
 						valValue = '';
 					} else {
-						valValue = (this.helper.isInteger(valValue)) ? valValue : { [Op.like]: '%' + valValue + '%' };
+						valValue = this.helper.isInteger(valValue) ? valValue : { [Op.like]: '%' + valValue + '%' };
 					}
 				}
 
@@ -178,29 +183,20 @@ export class Query {
 			if (this.helper.isNotEmpty(valArray[0]) && valArray[1]) {
 				let splitArray: Array<any> = valArray[1].split(',');
 				if (splitArray.length > 1) {
-					splitArray = splitArray.map( (splitval) => {
-						return (splitval === 'null') ? '' : splitval;
-					});
+					splitArray = splitArray.map((splitval) => (splitval === 'null' ? '' : splitval));
 					finalQuery[this.getChildKey(valArray[0])] = { [Op.in]: splitArray };
 				} else {
 					if (valArray[1] === 'null') {
 						finalQuery[this.getChildKey(valArray[0])] = '';
 					} else {
-						finalQuery[this.getChildKey(valArray[0])] = (this.helper.isInteger(valArray[1])) ? valArray[1] : { [Op.like]: '%' + valArray[1] + '%' };
+						finalQuery[this.getChildKey(valArray[0])] = this.helper.isInteger(valArray[1])
+							? valArray[1]
+							: { [Op.like]: '%' + valArray[1] + '%' };
 					}
 				}
 			}
 		});
 
-		return {...whereData, ...finalQuery};
-	}
-
-	appendRequestOrder(orderData: Array<any> = [], reqOrder: string = ''): object {
-		const reqOrderArray: Array<any> = reqOrder.split(':');
-		const sorting: string = (reqOrderArray[1] === 'ASC' || reqOrderArray[1] === 'DESC') ? reqOrderArray[1] : 'ASC';
-
-		orderData.push([...reqOrderArray[0].split('.'), sorting]);
-
-		return orderData;
+		return { ...whereData, ...finalQuery };
 	}
 }

@@ -3,15 +3,15 @@ import {
 } from 'sequelize';
 
 export interface CountriesAttributes {
-	id ?: string;
-	createdAt ?: Date;
-	updatedAt ?: Date;
+	id?: string;
+	createdAt?: Date;
+	updatedAt?: Date;
 
-	code ?: string;
-	name ?: string;
-	description ?: string;
-	default ?: boolean;
-	active ?: boolean;
+	code?: string;
+	name?: string;
+	description?: string;
+	default?: boolean;
+	active?: boolean;
 }
 
 export default function(sequelize: Sequelize, dataTypes: any) {

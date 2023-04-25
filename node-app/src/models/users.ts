@@ -26,33 +26,33 @@ const decodeKeyInformation = (data) => {
 };
 
 export interface UsersAttributes {
-	id ?: string;
-	createdUserId ?: string;
-	createdAt ?: Date;
-	updatedUserId ?: string;
-	updatedAt ?: Date;
+	id?: string;
+	createdUserId?: string;
+	createdAt?: Date;
+	updatedUserId?: string;
+	updatedAt?: Date;
 
-	firstName ?: string;
-	lastName ?: string;
-	email ?: string;
-	phone ?: string;
-	username ?: string;
-	password ?: string;
-	salt ?: string;
-	forgotPasswordKey ?: string;
-	lastLogin ?: Date;
-	loginCount ?: number;
-	roleId ?: number;
-	languageId ?: number;
-	countryId ?: number;
-	socialMedia ?: string;
-	socialMediaKey ?: string;
-	active ?: boolean;
-	verified ?: boolean;
-	verificationKey ?: string;
+	firstName?: string;
+	lastName?: string;
+	email?: string;
+	phone?: string;
+	username?: string;
+	password?: string;
+	salt?: string;
+	forgotPasswordKey?: string;
+	lastLogin?: Date;
+	loginCount?: number;
+	roleId?: number;
+	languageId?: number;
+	countryId?: number;
+	socialMedia?: string;
+	socialMediaKey?: string;
+	active?: boolean;
+	verified?: boolean;
+	verificationKey?: string;
 
-	loginAttempt ?: number;
-	passwordExpiry ?: Date;
+	loginAttempt?: number;
+	passwordExpiry?: Date;
 }
 
 export default function(sequelize: Sequelize, dataTypes: any) {

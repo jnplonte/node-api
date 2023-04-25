@@ -31,9 +31,9 @@ export class Countries extends CoreMiddleware {
 	 *
 	 * @apiDescription get all country
 	 *
-	 * @apiParam (query) {String} [query] filter query <br/>Ex. ?query=key:value
-	 * @apiParam (query) {Number} [limit=10] data limit <br/>Ex. ?limit=1
-	 * @apiParam (query) {Number} [page=1] page number <br/>Ex. ?page=1
+	 * @apiQuery {String} [query] filter query <br/>Ex. ?query=key:value
+	 * @apiQuery {Number} [limit=10] data limit <br/>Ex. ?limit=1
+	 * @apiQuery {Number} [page=1] page number <br/>Ex. ?page=1
 	 */
 	all(req: Request, res: Response): void {
 		const whereData = {
@@ -60,8 +60,8 @@ export class Countries extends CoreMiddleware {
 	 *
 	 * @apiDescription get one country
 	 *
-	 * @apiParam (param) {Number} id country id
-	 * @apiParam (query) {String} key key search <br/>Ex. ?key=name
+	 * @apiParam {Number} id country id
+	 * @apiQuery {String} key key search <br/>Ex. ?key=name
 	 */
 	get(req: Request, res: Response): void {
 		const whereData = {};
@@ -81,10 +81,10 @@ export class Countries extends CoreMiddleware {
 	 *
 	 * @apiDescription insert country
 	 *
-	 * @apiParam (body) {String} name name
-	 * @apiParam (body) {String} code code
-	 * @apiParam (body) {String} [description] description
-	 * @apiParam (body) {Boolean} [default] is default value
+	 * @apiBody {String} name name
+	 * @apiBody {String} code code
+	 * @apiBody {String} [description] description
+	 * @apiBody {Boolean} [default] is default value
 	 */
 	post(req: Request, res: Response): void {
 		const reqParameters = ['code', 'name'];
@@ -114,12 +114,12 @@ export class Countries extends CoreMiddleware {
 	 *
 	 * @apiDescription update country
 	 *
-	 * @apiParam (param) {Number} id country id
-	 * @apiParam (body) {String} [name] name
-	 * @apiParam (body) {String} [code] code
-	 * @apiParam (body) {String} [description] description
-	 * @apiParam (body) {Boolean} [default] is default value
-	 * @apiParam (body) {Boolean} [active] is country active
+	 * @apiParam {Number} id country id
+	 * @apiBody {String} [name] name
+	 * @apiBody {String} [code] code
+	 * @apiBody {String} [description] description
+	 * @apiBody {Boolean} [default] is default value
+	 * @apiBody {Boolean} [active] is country active
 	 */
 	put(req: Request, res: Response): void {
 		const id = req.params.id;
@@ -151,7 +151,7 @@ export class Countries extends CoreMiddleware {
 	 *
 	 * @apiDescription delete country
 	 *
-	 * @apiParam (param) {Number} id country id
+	 * @apiParam {Number} id country id
 	 */
 	delete(req: Request, res: Response): void {
 		const id = req.params.id;

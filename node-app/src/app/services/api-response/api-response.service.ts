@@ -4,7 +4,7 @@ export class ApiResponse {
 	env: string = process.env.NODE_ENV || 'local';
 
 	constructor() {
-
+		// constructor
 	}
 
 	getMessage(method: string = ''): string {
@@ -13,55 +13,55 @@ export class ApiResponse {
 		switch (method) {
 			case 'post-success':
 				message = 'Insert Success';
-			break;
+				break;
 
 			case 'put-success':
 				message = 'Update Success';
-			break;
+				break;
 
 			case 'delete-success':
 				message = 'Delete Success';
-			break;
+				break;
 
 			case 'post-failed':
 				message = 'Insert Failed';
-			break;
+				break;
 
 			case 'put-failed':
 				message = 'Update Failed';
-			break;
+				break;
 
 			case 'delete-failed':
 				message = 'Delete Failed';
-			break;
+				break;
 
 			case 'data-failed':
 				message = 'Missing Parameters';
-			break;
+				break;
 
 			case 'token-failed':
 				message = 'Invalid Authentication Token';
-			break;
+				break;
 
 			case 'model-failed':
 				message = 'Internal Server Error';
-			break;
+				break;
 
 			case 'cache-success':
 				message = 'Clear Cache Success';
-			break;
+				break;
 
 			case 'cache-failed':
 				message = 'Clear Cache Failed';
-			break;
+				break;
 
 			case 'permission-failed':
 				message = 'Permission Denied';
-			break;
+				break;
 
 			case 'login-failed':
 				message = 'Invalid Username or Password';
-			break;
+				break;
 
 			default:
 				message = method;
@@ -76,12 +76,12 @@ export class ApiResponse {
 			case 'SequelizeUniqueConstraintError':
 			case 'SequelizeDatabaseError':
 				message = 'Database Error';
-			break;
+				break;
 
 			case 'NetworkingError':
 			case 'SequelizeConnectionError':
 				message = 'Network Error';
-			break;
+				break;
 
 			default:
 				message = method;
@@ -91,26 +91,26 @@ export class ApiResponse {
 
 	success(res: Response, param: string, data: any = '', pagination: Object = {}, status: number = 200): any {
 		const resData = {
-			'status': 'success',
-			'message': this.getMessage(`${param}-success`),
-			'executionTime': (res.startTime) ? ((new Date().getTime()) - res.startTime) / 1000 : 0,
-			'data': data
+			status: 'success',
+			message: this.getMessage(`${param}-success`),
+			executionTime: res.startTime ? (new Date().getTime() - res.startTime) / 1000 : 0,
+			data: data,
 		};
 
 		if (pagination && Object.keys(pagination).length !== 0 && pagination.constructor === Object) {
 			resData['pagination'] = pagination || {};
 		}
 
-		return (res.status) ? res.status(status || 200).json(resData) : resData;
+		return res.status ? res.status(status || 200).json(resData) : resData;
 	}
 
 	failed(res: Response, param: string, data: any = '', error: number = 400): any {
 		const resData = {
-			'status': 'failed',
-			'message': this.getMessage(`${param}-failed`),
-			'executionTime': (res.startTime) ? ((new Date().getTime()) - res.startTime) / 1000 : 0,
-			'data': (this.env === 'production') ? this.getError(data.name || data.code) : data
+			status: 'failed',
+			message: this.getMessage(`${param}-failed`),
+			executionTime: res.startTime ? (new Date().getTime() - res.startTime) / 1000 : 0,
+			data: this.env === 'production' ? this.getError(data.name || data.code) : data,
 		};
-		return (res.status) ? res.status(error || 400).json(resData) : resData;
+		return res.status ? res.status(error || 400).json(resData) : resData;
 	}
 }

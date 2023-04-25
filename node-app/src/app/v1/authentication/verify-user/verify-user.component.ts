@@ -24,8 +24,8 @@ export class VerifyUser extends CoreMiddleware {
 	 *
 	 * @apiDescription verify user
 	 *
-	 * @apiParam (body) {String} verificationKey verification key
-	 * @apiParam (body) {String} username user name
+	 * @apiBody {String} verificationKey verification key
+	 * @apiBody {String} username user name
 	 */
 	verify(req: Request, res: Response): void {
 		const reqParameters: string[] = ['username', 'verificationKey'];
@@ -57,11 +57,11 @@ export class VerifyUser extends CoreMiddleware {
 	 *
 	 * @apiDescription send verification email
 	 *
-	 * @apiParam (body) {String} username user name
-	 * @apiParam (body) {String} return url callback <br /> Expected Value: `https://wwww.jnpl.me/forgot?p={{key}}`
-	 * @apiParam (body) {String} [subject] email subject
-	 * @apiParam (body) {String} [template] email template
-	 * @apiParam (body) {String} [logo] email logo
+	 * @apiBody {String} username user name
+	 * @apiBody {String} return url callback <br /> Expected Value: `https://wwww.jnpl.me/forgot?p={{key}}`
+	 * @apiBody {String} [subject] email subject
+	 * @apiBody {String} [template] email template
+	 * @apiBody {String} [logo] email logo
 	 */
 	verifySend(req: Request, res: Response): void {
 		const reqParameters: string[] = ['username', 'return'];

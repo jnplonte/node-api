@@ -1,10 +1,9 @@
 import {
-  QueryInterface
+	QueryInterface
 } from 'sequelize';
 
 module.exports = {
-  up: (queryInterface: QueryInterface, Sequelize: any) => {
-	return queryInterface.bulkInsert('languages', [{
+	up: (queryInterface: QueryInterface, Sequelize: any) => queryInterface.bulkInsert('languages', [{
 		id: 1,
 		code: 'EN',
 		name: 'english',
@@ -12,10 +11,7 @@ module.exports = {
 		active: true,
 		createdAt: new Date(),
 		updatedAt: new Date()
-	}], {});
-  },
+	}], {}),
 
-  down: (queryInterface: QueryInterface, Sequelize: any) => {
-	return queryInterface.bulkDelete('languages', {});
-  }
+	down: (queryInterface: QueryInterface, Sequelize: any) => queryInterface.bulkDelete('languages', {})
 };

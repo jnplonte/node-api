@@ -1,18 +1,76 @@
-import {    toJson, toString, isEmail, isEmpty, isNotEmpty, cleanData, isEmptyObject, isStringExist,
-			checkObjectInList, filterData, removeData, replaceHtml, generateRandomString, flatObject,
-			readJwtToken, createJwtToken, encodePassword, isInteger, isInArray, cleanDataWithNull, titleCase,
-			cleanDataRemoveNull, encode, decode, dateTimeNowStart, dateTimeNowEnd
-		} from 'jnpl-helper';
+import {
+	toJson,
+	toString,
+	isEmail,
+	isEmpty,
+	isNotEmpty,
+	cleanData,
+	isEmptyObject,
+	isStringExist,
+	checkObjectInList,
+	filterData,
+	removeData,
+	replaceHtml,
+	generateRandomString,
+	flatObject,
+	readJwtToken,
+	createJwtToken,
+	encodePassword,
+	isInteger,
+	isInArray,
+	cleanDataWithNull,
+	titleCase,
+	cleanDataRemoveNull,
+	encode,
+	decode,
+	dateTimeNowStart,
+	dateTimeNowEnd,
+} from 'jnpl-helper';
 
 export class Helper {
 	env: string = process.env.NODE_ENV || 'local';
 
 	constructor(private config) {
+		// constructor
+	}
 
+	get passwordExpiry(): Date {
+		const dateExpiry = new Date();
+		dateExpiry.setDate(dateExpiry.getDate() + this.config.passwordExpiryLength || 30);
+
+		return dateExpiry;
+	}
+
+	get secretKey(): string {
+		return this.config.secretKey || '';
+	}
+
+	get secretHash(): string {
+		return this.config.secretKeyHash || '';
+	}
+
+	get defaultUserRole(): number {
+		return this.config.defaultUserRole || 5;
+	}
+
+	get defaultLanguage(): number {
+		return this.config.defaultLanguage || 1;
+	}
+
+	get defaultCurrency(): number {
+		return this.config.defaultCurrency || 85;
+	}
+
+	get startDate(): string {
+		return dateTimeNowStart;
+	}
+
+	get endDate(): string {
+		return dateTimeNowEnd;
 	}
 
 	cleanSequelizeData(data: any): Object {
-		return (typeof(data.get) !== 'undefined') ? data.get({ plain: true}) : data;
+		return typeof data.get !== 'undefined' ? data.get({ plain: true }) : data;
 	}
 
 	cleanSequelizeDataArray(data: any): Array<any> {
@@ -108,7 +166,7 @@ export class Helper {
 	}
 
 	checkAccess(authenticationToken: Object = {}, permissionLevel: number = 1): boolean {
-		return (authenticationToken['permissionLevel']) ? (authenticationToken['permissionLevel'] <= permissionLevel) : false;
+		return authenticationToken['permissionLevel'] ? authenticationToken['permissionLevel'] <= permissionLevel : false;
 	}
 
 	flatObject(obj: Object = {}, result: Object = {}): Object {
@@ -127,41 +185,6 @@ export class Helper {
 
 	titleCase(string: string = ''): string {
 		return titleCase(string);
-	}
-
-	get passwordExpiry(): Date {
-		const dateExpiry = new Date();
-		dateExpiry.setDate(dateExpiry.getDate() + this.config.passwordExpiryLength || 30);
-
-		return dateExpiry;
-	}
-
-	get secretKey(): string {
-		return this.config.secretKey || '';
-	}
-
-	get secretHash(): string {
-		return this.config.secretKeyHash || '';
-	}
-
-	get defaultUserRole(): number {
-		return this.config.defaultUserRole || 5;
-	}
-
-	get defaultLanguage(): number {
-		return this.config.defaultLanguage || 1;
-	}
-
-	get defaultCurrency(): number {
-		return this.config.defaultCurrency || 85;
-	}
-
-	get startDate(): string {
-		return dateTimeNowStart;
-	}
-
-	get endDate(): string {
-		return dateTimeNowEnd;
 	}
 
 	encode(data): string {

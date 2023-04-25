@@ -15,23 +15,23 @@ export class CoreMiddleware extends BaseMiddleware {
 	}
 
 	all(req: Request, res: Response): void {
-
+		// all
 	}
 
 	get(req: Request, res: Response): void {
-
+		// get
 	}
 
 	post(req: Request, res: Response): void {
-
+		// post
 	}
 
 	put(req: Request, res: Response): void {
-
+		// put
 	}
 
 	delete(req: Request, res: Response): void {
-
+		// delete
 	}
 
 	protected getInclude(model?: any): Array<any> {
@@ -43,7 +43,7 @@ export class CoreMiddleware extends BaseMiddleware {
 	}
 
 	protected autoFillPostInformation(data: object = {}, authData: object = {}): object {
-		if (typeof(authData['id']) !== 'undefined') {
+		if (typeof authData['id'] !== 'undefined') {
 			data['createdUserId'] = authData['id'];
 			data['updatedUserId'] = authData['id'];
 		}
@@ -55,8 +55,8 @@ export class CoreMiddleware extends BaseMiddleware {
 	}
 
 	protected autoFillAllPostInformation(data: Array<object>, authData: object = {}): Array<object> {
-		return data.map( (dataval) => {
-			if (typeof(authData['id']) !== 'undefined') {
+		return data.map((dataval) => {
+			if (typeof authData['id'] !== 'undefined') {
 				dataval['createdUserId'] = authData['id'];
 				dataval['updatedUserId'] = authData['id'];
 			}
@@ -69,7 +69,7 @@ export class CoreMiddleware extends BaseMiddleware {
 	}
 
 	protected autoFillPutInformation(data: object = {}, authData: object = {}): object {
-		if (typeof(authData['id']) !== 'undefined') {
+		if (typeof authData['id'] !== 'undefined') {
 			data['updatedUserId'] = authData['id'];
 		}
 
@@ -79,8 +79,8 @@ export class CoreMiddleware extends BaseMiddleware {
 	}
 
 	protected autoFillAllPutInformation(data: Array<object>, authData: object = {}): Array<object> {
-		return data.map( (dataval) => {
-			if (typeof(authData['id']) !== 'undefined') {
+		return data.map((dataval) => {
+			if (typeof authData['id'] !== 'undefined') {
 				dataval['updatedUserId'] = authData['id'];
 			}
 
@@ -91,7 +91,7 @@ export class CoreMiddleware extends BaseMiddleware {
 	}
 
 	protected isAdmin(authData: object = {}): boolean {
-		return (authData['roleId'] && authData['roleId'] === 1);
+		return authData['roleId'] && authData['roleId'] === 1;
 	}
 
 	protected cacheCheck(pageCache?, nameCache?) {

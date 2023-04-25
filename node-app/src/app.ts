@@ -1,5 +1,5 @@
 import * as express from 'express';
-import * as jwt from 'express-jwt';
+import { expressjwt } from 'express-jwt';
 import * as helmet from 'helmet';
 import * as compression from 'compression';
 import * as cors from 'cors';
@@ -31,6 +31,7 @@ express['application']['version'] = express.Router['group'] = function (arg1, ar
 };
 
 // process.env.TZ = 'Asia/Manila';
+process.env.TZ = 'utc';
 
 const mysql = setup();
 
@@ -52,7 +53,8 @@ class App {
 	}
 
 	private addConfig(): void {
-		this.express.use(helmet());
+		/* @ts-ignore; */
+		this.express.use(helmet({ frameguard: false }));
 		this.express.use(compression());
 		this.express.use(cors());
 		this.express.use(express.json());
@@ -61,9 +63,11 @@ class App {
 
 	private implementToken(): void {
 		this.express.use(
-			jwt({ secret: baseConfig.secretKeyHash, requestProperty: 'authentication', algorithms: ['HS256'] }).unless({
-				path: [/\/documentation*/, /\/v1\/auth*/],
-			})
+			expressjwt({ secret: baseConfig.secretKeyHash, requestProperty: 'authentication', algorithms: ['HS256'] }).unless(
+				{
+					path: [/\/documentation*/, /\/v1\/auth*/],
+				}
+			)
 		);
 
 		this.express.use(function (err, req, res, next) {
@@ -114,14 +118,14 @@ class App {
 	}
 
 	private setNotFound(): void {
-		this.express.use((req, res) => {
-			return res.status(404).json({
+		this.express.use((req, res) =>
+			res.status(404).json({
 				status: 'failed',
 				message: 'Page Not Found',
 				executionTime: 0,
 				data: '',
-			});
-		});
+			})
+		);
 	}
 }
 

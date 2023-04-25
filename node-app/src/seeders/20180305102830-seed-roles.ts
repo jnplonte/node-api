@@ -1,10 +1,9 @@
 import {
-  QueryInterface
+	QueryInterface
 } from 'sequelize';
 
 module.exports = {
-  up: (queryInterface: QueryInterface, Sequelize: any) => {
-	return queryInterface.bulkInsert('roles', [{
+	up: (queryInterface: QueryInterface, Sequelize: any) => queryInterface.bulkInsert('roles', [{
 		id: 1,
 		name: 'super-admin',
 		description: 'Super Admin Role',
@@ -27,10 +26,7 @@ module.exports = {
 		permissionLevel: 10,
 		createdAt: new Date(),
 		updatedAt: new Date()
-	}], {});
-  },
+	}], {}),
 
-  down: (queryInterface: QueryInterface, Sequelize: any) => {
-	return queryInterface.bulkDelete('roles', {});
-  }
+	down: (queryInterface: QueryInterface, Sequelize: any) => queryInterface.bulkDelete('roles', {})
 };

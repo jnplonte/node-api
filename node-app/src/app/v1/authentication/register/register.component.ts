@@ -24,20 +24,20 @@ export class Register extends CoreMiddleware {
 	 *
 	 * @apiDescription register user
 	 *
-	 * @apiParam (body) {String} firstName first name
-	 * @apiParam (body) {String} lastName last name
-	 * @apiParam (body) {String} email unique email address
-	 * @apiParam (body) {String} username unique user name
-	 * @apiParam (body) {String} password MD5 hash password
-	 * @apiParam (body) {String} [phone] contact number
-	 * @apiParam (body) {Number} [languageId] language id
-	 * @apiParam (body) {Number} [currencyId] currency id
-	 * @apiParam (body) {Number} [roleId] role id
-	 * @apiParam (body) {Boolean} [verified] is verified
-	 * @apiParam (body) {String} [return] url callback <br /> Expected Value: `https://wwww.jnpl.me/verify?p={{key}}`
-	 * @apiParam (body) {String} [subject] email subject
-	 * @apiParam (body) {String} [template] template
-	 * @apiParam (body) {String} [logo] email logo
+	 * @apiBody {String} firstName first name
+	 * @apiBody {String} lastName last name
+	 * @apiBody {String} email unique email address
+	 * @apiBody {String} username unique user name
+	 * @apiBody {String} password MD5 hash password
+	 * @apiBody {String} [phone] contact number
+	 * @apiBody {Number} [languageId] language id
+	 * @apiBody {Number} [currencyId] currency id
+	 * @apiBody {Number} [roleId] role id
+	 * @apiBody {Boolean} [verified] is verified
+	 * @apiBody {String} [return] url callback <br /> Expected Value: `https://wwww.jnpl.me/verify?p={{key}}`
+	 * @apiBody {String} [subject] email subject
+	 * @apiBody {String} [template] template
+	 * @apiBody {String} [logo] email logo
 	 */
 	register(req: Request, res: Response): void {
 		const reqParameters: string[] = ['firstName', 'lastName', 'email', 'username', 'password'];
@@ -69,9 +69,7 @@ export class Register extends CoreMiddleware {
 		if (data['verified']) {
 			return req.models.users
 				.create(this.helper.cleanData(data))
-				.then((user: UsersAttributes) => {
-					return this.response.success(res, 'register', user.id || '');
-				})
+				.then((user: UsersAttributes) => this.response.success(res, 'register', user.id || ''))
 				.catch((error) => this.response.failed(res, 'register', error));
 		} else {
 			return req.models.users
@@ -106,17 +104,17 @@ export class Register extends CoreMiddleware {
 	 *
 	 * @apiDescription key register user
 	 *
-	 * @apiParam (body) {String} firstName first name
-	 * @apiParam (body) {String} lastName last name
-	 * @apiParam (body) {String} email unique email address
-	 * @apiParam (body) {String} username unique user name
-	 * @apiParam (body) {String} password MD5 hash password
-	 * @apiParam (body) {String} socialMedia social media <br /> Expected Value: `FACEBOOK|INSTAGRAM|TWITTER`
-	 * @apiParam (body) {String} socialMediaKey social media key
-	 * @apiParam (body) {String} [phone] contact number
-	 * @apiParam (body) {Number} [languageId] language id
-	 * @apiParam (body) {Number} [currencyId] currency id
-	 * @apiParam (body) {Number} [roleId] role id
+	 * @apiBody {String} firstName first name
+	 * @apiBody {String} lastName last name
+	 * @apiBody {String} email unique email address
+	 * @apiBody {String} username unique user name
+	 * @apiBody {String} password MD5 hash password
+	 * @apiBody {String} socialMedia social media <br /> Expected Value: `FACEBOOK|INSTAGRAM|TWITTER`
+	 * @apiBody {String} socialMediaKey social media key
+	 * @apiBody {String} [phone] contact number
+	 * @apiBody {Number} [languageId] language id
+	 * @apiBody {Number} [currencyId] currency id
+	 * @apiBody {Number} [roleId] role id
 	 */
 	keyRegister(req: Request, res: Response): void {
 		const reqParameters: string[] = [
@@ -168,9 +166,7 @@ export class Register extends CoreMiddleware {
 					whereData
 				);
 			})
-			.then((userCreate: UsersAttributes) => {
-				return this.response.success(res, 'register', userCreate.id || '');
-			})
+			.then((userCreate: UsersAttributes) => this.response.success(res, 'register', userCreate.id || ''))
 			.catch((error) => this.response.failed(res, 'register', error));
 	}
 }

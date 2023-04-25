@@ -3,13 +3,13 @@ import {
 } from 'sequelize';
 
 export interface RolesAttributes {
-	id ?: number;
-	createdAt ?: Date;
-	updatedAt ?: Date;
+	id?: number;
+	createdAt?: Date;
+	updatedAt?: Date;
 
-	name ?: string;
-	description ?: string;
-	permissionLevel ?: number;
+	name?: string;
+	description?: string;
+	permissionLevel?: number;
 }
 
 export default function(sequelize: Sequelize, dataTypes: any) {

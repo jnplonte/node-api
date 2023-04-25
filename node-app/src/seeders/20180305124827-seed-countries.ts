@@ -1,10 +1,9 @@
 import {
-  QueryInterface
+	QueryInterface
 } from 'sequelize';
 
 module.exports = {
-  up: (queryInterface: QueryInterface, Sequelize: any) => {
-	return queryInterface.bulkInsert('countries', [
+	up: (queryInterface: QueryInterface, Sequelize: any) => queryInterface.bulkInsert('countries', [
 		{
 			name: 'Afghanistan',
 			code: 'AF',
@@ -1893,10 +1892,7 @@ module.exports = {
 			createdAt: new Date(),
 			updatedAt: new Date()
 		}
-	], {});
-  },
+	], {}),
 
-  down: (queryInterface: QueryInterface, Sequelize: any) => {
-	return queryInterface.bulkDelete('countries', {});
-  }
+	down: (queryInterface: QueryInterface, Sequelize: any) => queryInterface.bulkDelete('countries', {})
 };

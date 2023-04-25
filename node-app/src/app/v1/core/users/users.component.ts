@@ -46,9 +46,9 @@ export class Users extends CoreMiddleware {
 	 *
 	 * @apiDescription get all user
 	 *
-	 * @apiParam (query) {String} [query] filter query <br/>Ex. ?query=key:value
-	 * @apiParam (query) {Number} [limit=10] data limit <br/>Ex. ?limit=1
-	 * @apiParam (query) {Number} [page=1] page number <br/>Ex. ?page=1
+	 * @apiQuery {String} [query] filter query <br/>Ex. ?query=key:value
+	 * @apiQuery {Number} [limit=10] data limit <br/>Ex. ?limit=1
+	 * @apiQuery {Number} [page=1] page number <br/>Ex. ?page=1
 	 */
 	all(req: Request, res: Response): void {
 		const whereData = {
@@ -77,8 +77,8 @@ export class Users extends CoreMiddleware {
 	 *
 	 * @apiDescription get one user
 	 *
-	 * @apiParam (param) {String} id user id
-	 * @apiParam (query) {String} key key search <br/>Ex. ?key=name
+	 * @apiParam {String} id user id
+	 * @apiQuery {String} key key search <br/>Ex. ?key=name
 	 */
 	get(req: Request, res: Response): void {
 		const whereData = {
@@ -130,16 +130,16 @@ export class Users extends CoreMiddleware {
 	 *
 	 * @apiDescription insert user
 	 *
-	 * @apiParam (body) {String} firstName first name
-	 * @apiParam (body) {String} lastName last name
-	 * @apiParam (body) {String} email unique email address
-	 * @apiParam (body) {String} username unique user name
-	 * @apiParam (body) {String} password MD5 hash password
-	 * @apiParam (body) {String} [phone] contact number
-	 * @apiParam (body) {String} [socialMedia=NONE] social media <br /> Expected Value: `FACEBOOK|INSTAGRAM|TWITTER`
-	 * @apiParam (body) {String} [socialMediaKey] social media key
-	 * @apiParam (body) {Number} [languageId] language id
-	 * @apiParam (body) {Number} [roleId] role id
+	 * @apiBody {String} firstName first name
+	 * @apiBody {String} lastName last name
+	 * @apiBody {String} email unique email address
+	 * @apiBody {String} username unique user name
+	 * @apiBody {String} password MD5 hash password
+	 * @apiBody {String} [phone] contact number
+	 * @apiBody {String} [socialMedia=NONE] social media <br /> Expected Value: `FACEBOOK|INSTAGRAM|TWITTER`
+	 * @apiBody {String} [socialMediaKey] social media key
+	 * @apiBody {Number} [languageId] language id
+	 * @apiBody {Number} [roleId] role id
 	 */
 	post(req: Request, res: Response): void {
 		const reqParameters = ['firstName', 'lastName', 'email', 'username', 'password'];
@@ -169,18 +169,18 @@ export class Users extends CoreMiddleware {
 	 *
 	 * @apiDescription update user
 	 *
-	 * @apiParam (param) {String} id user id
-	 * @apiParam (body) {String} [firstName] first name
-	 * @apiParam (body) {String} [lastName] last name
-	 * @apiParam (body) {String} [email] unique email address
-	 * @apiParam (body) {String} [password] MD5 hash password
-	 * @apiParam (body) {String} [phone] contact number
-	 * @apiParam (body) {String} [socialMedia=NONE] social media <br /> Expected Value: `FACEBOOK|INSTAGRAM|TWITTER`
-	 * @apiParam (body) {String} [socialMediaKey] social media key
-	 * @apiParam (body) {Number} [languageId] language id
-	 * @apiParam (body) {Number} [currencyId] currency id
-	 * @apiParam (body) {Boolean} [verified] is user verified
-	 * @apiParam (body) {Boolean} [active] is user active
+	 * @apiParam {String} id user id
+	 * @apiBody {String} [firstName] first name
+	 * @apiBody {String} [lastName] last name
+	 * @apiBody {String} [email] unique email address
+	 * @apiBody {String} [password] MD5 hash password
+	 * @apiBody {String} [phone] contact number
+	 * @apiBody {String} [socialMedia=NONE] social media <br /> Expected Value: `FACEBOOK|INSTAGRAM|TWITTER`
+	 * @apiBody {String} [socialMediaKey] social media key
+	 * @apiBody {Number} [languageId] language id
+	 * @apiBody {Number} [currencyId] currency id
+	 * @apiBody {Boolean} [verified] is user verified
+	 * @apiBody {Boolean} [active] is user active
 	 */
 	put(req: Request, res: Response): void {
 		const id = req.params.id;
@@ -213,7 +213,7 @@ export class Users extends CoreMiddleware {
 	 *
 	 * @apiDescription delete user
 	 *
-	 * @apiParam (param) {String} id user id
+	 * @apiParam {String} id user id
 	 */
 	delete(req: Request, res: Response): void {
 		const id = req.params.id;

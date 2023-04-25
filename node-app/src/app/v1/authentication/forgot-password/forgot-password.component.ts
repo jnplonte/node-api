@@ -24,8 +24,8 @@ export class ForgotPassword extends CoreMiddleware {
 	 *
 	 * @apiDescription change user password
 	 *
-	 * @apiParam (body) {String} forgotPasswordKey forgot password key
-	 * @apiParam (body) {String} password MD5 hash password
+	 * @apiBody {String} forgotPasswordKey forgot password key
+	 * @apiBody {String} password MD5 hash password
 	 */
 	forgot(req: Request, res: Response): void {
 		const reqParameters: string[] = ['forgotPasswordKey', 'password'];
@@ -62,11 +62,11 @@ export class ForgotPassword extends CoreMiddleware {
 	 *
 	 * @apiDescription forgot user password
 	 *
-	 * @apiParam (body) {String} username user name
-	 * @apiParam (body) {String} return url callback <br /> Expected Value: `https://wwww.jnpl.me/forgot?p={{key}}`
-	 * @apiParam (body) {String} [subject] email subject
-	 * @apiParam (body) {String} [template] email template
-	 * @apiParam (body) {String} [logo] email logo
+	 * @apiBody {String} username user name
+	 * @apiBody {String} return url callback <br /> Expected Value: `https://wwww.jnpl.me/forgot?p={{key}}`
+	 * @apiBody {String} [subject] email subject
+	 * @apiBody {String} [template] email template
+	 * @apiBody {String} [logo] email logo
 	 */
 	forgotSend(req: Request, res: Response): void {
 		const reqParameters: string[] = ['username', 'return'];

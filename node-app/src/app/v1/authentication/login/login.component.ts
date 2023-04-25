@@ -25,9 +25,9 @@ export class LogIn extends CoreMiddleware {
 	 *
 	 * @apiDescription authenticate user and provide JWT token
 	 *
-	 * @apiParam (body) {String} username user name
-	 * @apiParam (body) {String} password MD5 hash password
-	 * @apiParam (query) {String} roleId role id <br/>Ex. ?roleId=1,2,3
+	 * @apiBody {String} username user name
+	 * @apiBody {String} password MD5 hash password
+	 * @apiQuery {String} roleId role id <br/>Ex. ?roleId=1,2,3
 	 */
 	login(req: Request, res: Response): void {
 		const reqParameters: string[] = ['username', 'password'];
@@ -37,9 +37,9 @@ export class LogIn extends CoreMiddleware {
 
 		const roleIds: Array<any> = req.query.roleId
 			? req.query.roleId
-					.toString()
-					.split(',')
-					.map((i) => Number(i))
+				.toString()
+				.split(',')
+				.map((i) => Number(i))
 			: [];
 
 		const whereData = {
@@ -102,10 +102,10 @@ export class LogIn extends CoreMiddleware {
 	 *
 	 * @apiDescription authenticate user and provide JWT token
 	 *
-	 * @apiParam (body) {String} type login type
-	 * @apiParam (body) {String} email email address
-	 * @apiParam (body) {String} key login key
-	 * @apiParam (query) {String} roleId role id <br/>Ex. ?roleId=1,2,3
+	 * @apiBody {String} type login type
+	 * @apiBody {String} email email address
+	 * @apiBody {String} key login key
+	 * @apiQuery {String} roleId role id <br/>Ex. ?roleId=1,2,3
 	 */
 	keyLogin(req: Request, res: Response): void {
 		const reqParameters: string[] = ['type', 'email', 'key'];
@@ -115,9 +115,9 @@ export class LogIn extends CoreMiddleware {
 
 		const roleIds: Array<any> = req.query.roleId
 			? req.query.roleId
-					.toString()
-					.split(',')
-					.map((i) => Number(i))
+				.toString()
+				.split(',')
+				.map((i) => Number(i))
 			: [];
 
 		const whereData = {

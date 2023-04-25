@@ -38,9 +38,7 @@ export class Notification {
 		];
 
 		return this.mailer.send(dataSend)
-			.then( (mdata) => {
-				return resetPasswordLink;
-			})
+			.then( (mdata) => resetPasswordLink)
 			.catch( (error) => error );
 	}
 
@@ -70,9 +68,7 @@ export class Notification {
 		];
 
 		return this.mailer.send(dataSend)
-			.then( (mdata) => {
-				return verificationLink;
-			})
+			.then( (mdata) => verificationLink)
 			.catch( (error) => error );
 	}
 }
